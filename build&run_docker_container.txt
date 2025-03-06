@@ -1,0 +1,4 @@
+docker build -t yolo-fastapi-triton .
+docker run --gpus all -p 8000:8000 -p 8001:8001 -p 8002:8002 --name yolo-app -v D:/WORKING/Yolo_task/models:/models yolo-fastapi-triton
+
+swagger ui view on localhost:8000

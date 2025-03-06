@@ -1,0 +1,21 @@
+docker pull nvcr.io/nvidia/tritonserver:24.08-py3-sdk                               #cùng phiên bản với TensorRT trong image của anh Hiếu 
+
+docker run --gpus all --rm -it --net host nvcr.io/nvidia/tritonserver:24.08-py3-sdk #vào trong container
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/best-b.onnx --saveEngine=/models/best-b.plan --int8 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/last-b.onnx --saveEngine=/models/last-b.plan --int8 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/best-s.onnx --saveEngine=/models/best-s.plan --int8 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/last-s.onnx --saveEngine=/models/last-s.plan --int8 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/best-b.onnx --saveEngine=/models/best-b.plan --fp16 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/last-b.onnx --saveEngine=/models/last-b.plan --fp16 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/best-s.onnx --saveEngine=/models/best-s.plan --fp16 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+/usr/src/tensorrt/bin/trtexec --onnx=/models/last-s.onnx --saveEngine=/models/last-s.plan --fp16 --minShapes=images:1x3x640x640 --optShapes=images:1x3x640x640 --maxShapes=images:1x3x1280x1280
+
+#Copy từng file model vào container sao đó convert sang TensorRT
